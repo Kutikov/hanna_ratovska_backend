@@ -3,5 +3,6 @@
 /workspace.xml
 /node_modules
 /README.md
+/.idea
 # Editor-based HTTP Client requests
 /httpRequests/
