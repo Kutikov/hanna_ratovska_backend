@@ -5,26 +5,25 @@ const app= express();
 
 app.use(express.json());
 
-
 const dataJson = fs.readFileSync('./users.json', 'utf-8');
 const usersArr = JSON.parse(dataJson);
-
 
 app.get('/', (req, res, next) => {
     res.json(usersArr);
 });
 
-app.post('/users', (req, res) => {
-    const {name} = req.query;
-    if (name) {
-        const user = usersArr.find(user => user.name === name);
+app.get('/users', (req, res) => {
+    const {id} = req.query;
+    if (id) {
+        const user = usersArr.find(user => user.id === Number(id));
+        console.log(user)
         if (user) {
             res.json(user);
         } else {
             res.status(404).send('User not found');
         }
     } else {
-        res.status(400).send('No name in query');
+        res.status(400).send('No id in query');
     }
 })
 
@@ -36,6 +35,7 @@ app.put('/users', (req, res) => {
             res.status(409).send('User exist')
         } else {
             usersArr.push({
+                id: usersArr[usersArr.length - 1].id + 1,
                 name: name,
                 age: age,
                 city: city
@@ -48,10 +48,32 @@ app.put('/users', (req, res) => {
     }
 })
 
+app.patch('/users/settings', (req, res) => {
+    const {id, age} = req.query;
+    if(id && age) {
+        const doesIdExist = usersArr.some((user) => user.id === Number(id));
+        if(doesIdExist) {
+            const updatedArr = usersArr.map((user) =>
+                user.id === Number(id) ?
+                    {
+                        ...user,
+                        age: age
+                    } :
+                    user);
+            res.json(updatedArr);
+            fs.writeFileSync('./users.json', JSON.stringify(updatedArr), 'utf-8');
+        } else {
+            res.status(404).send('User not found')
+        }
+    } else {
+        res.status(400).send('Not full info')
+    }
+})
+
 app.delete('/users', (req, res) => {
-    const {name} = req.query;
-    if (name) {
-        const userOnDelete = usersArr.find(user => user.name === name);
+    const {id} = req.query;
+    if (id) {
+        const userOnDelete = usersArr.find(user => user.id === Number(id));
         if(userOnDelete) {
             const newUsersArr = usersArr.filter(user => user !== userOnDelete)
             fs.writeFileSync('./users.json', JSON.stringify(newUsersArr));
