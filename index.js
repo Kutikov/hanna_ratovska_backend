@@ -12,10 +12,11 @@ app.get('/', (req, res, next) => {
     res.json(usersArr);
 });
 
-app.get('/users', (req, res) => {
-    const {id} = req.query;
+app.get('/users/:id', (req, res) => {
+    const id = +req.params.id;
+
     if (id) {
-        const user = usersArr.find(user => user.id === Number(id));
+        const user = usersArr.find(user => user.id === id);
         console.log(user)
         if (user) {
             res.json(user);
@@ -29,6 +30,7 @@ app.get('/users', (req, res) => {
 
 app.put('/users', (req, res) => {
     const {name, age, city} = req.body;
+
     if(name && age && city) {
         const user = usersArr.find(user => user.name === name);
         if(user) {
@@ -48,13 +50,15 @@ app.put('/users', (req, res) => {
     }
 })
 
-app.patch('/users/settings', (req, res) => {
-    const {id, age} = req.query;
+app.patch('/users/settings/:id', (req, res) => {
+    const id = +req.params.id;
+    const age = req.body.age;
+
     if(id && age) {
-        const doesIdExist = usersArr.some((user) => user.id === Number(id));
+        const doesIdExist = usersArr.some((user) => user.id === id);
         if(doesIdExist) {
             const updatedArr = usersArr.map((user) =>
-                user.id === Number(id) ?
+                user.id === id ?
                     {
                         ...user,
                         age: age
@@ -70,10 +74,11 @@ app.patch('/users/settings', (req, res) => {
     }
 })
 
-app.delete('/users', (req, res) => {
-    const {id} = req.query;
+app.delete('/users/:id', (req, res) => {
+    const id = +req.params.id;
+
     if (id) {
-        const userOnDelete = usersArr.find(user => user.id === Number(id));
+        const userOnDelete = usersArr.find(user => user.id === id);
         if(userOnDelete) {
             const newUsersArr = usersArr.filter(user => user !== userOnDelete)
             fs.writeFileSync('./users.json', JSON.stringify(newUsersArr));
