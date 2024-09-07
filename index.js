@@ -6,25 +6,15 @@ const {getUser, getAllUsers, addUser, setUser, deleteUser} = require("./users/in
 
 app.use(express.json());
 
-app.get('/', (req, res, next) => {
-    getAllUsers(req, res)
-});
+app.get('/', getAllUsers);
 
-app.get('/users/:id', (req, res) => {
-    getUser(req, res)
-})
+app.get('/users/:id', getUser)
 
-app.put('/users', (req, res) => {
-    addUser(req, res)
-})
+app.put('/users', addUser)
 
-app.patch('/users/settings/:id', (req, res) => {
-    setUser(req, res)
-})
+app.patch('/users/settings/:id', setUser)
 
-app.delete('/users/:id', (req, res) => {
-    deleteUser(req, res)
-})
+app.delete('/users/:id', deleteUser)
 
 app.listen(PORT, ()=> {
     console.log(`It\'s started on port ${PORT} at ${(new Date()).toLocaleString('uk-UA')}`)
