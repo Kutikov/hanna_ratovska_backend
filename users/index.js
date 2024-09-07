@@ -3,7 +3,7 @@ const {request} = require("express");
 const getRandomId = () => Math.floor(Math.random() * 100);
 
 const getData = () => {
-    const dataJson = fs.readFileSync('./users.json', 'utf-8');
+    const dataJson = fs.readFileSync('./users/resources.json', 'utf-8');
     const usersArr = JSON.parse(dataJson);
     return usersArr
 }
@@ -50,7 +50,7 @@ const addUser = (req, res) => {
                 age: age,
                 city: city
             })
-            fs.writeFileSync('./users.json', JSON.stringify(usersArr), 'utf-8');
+            fs.writeFileSync('./users/resources.json', JSON.stringify(usersArr), 'utf-8');
             res.json(usersArr);
         }
     } else {
@@ -74,7 +74,7 @@ const setUser = (req, res) => {
                     } :
                     user);
             res.json(updatedArr);
-            fs.writeFileSync('./users.json', JSON.stringify(updatedArr), 'utf-8');
+            fs.writeFileSync('./users/resources.json', JSON.stringify(updatedArr), 'utf-8');
         } else {
             res.status(404).send('User not found')
         }
@@ -91,7 +91,7 @@ const deleteUser = (req, res) => {
         const userOnDelete = usersArr.find(user => user.id === id);
         if(userOnDelete) {
             const newUsersArr = usersArr.filter(user => user !== userOnDelete)
-            fs.writeFileSync('./users.json', JSON.stringify(newUsersArr));
+            fs.writeFileSync('./users/resources.json', JSON.stringify(newUsersArr));
             res.json(newUsersArr)
         } else {
             res.status(404).send('User not found');

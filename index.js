@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require("fs");
 const PORT = 5000;
 const app= express();
-const {getUser, getAllUsers, addUser, setUser, deleteUser} = require("./helpers/helpers");
+const {getUser, getAllUsers, addUser, setUser, deleteUser} = require("./users/index");
 
 app.use(express.json());
 
