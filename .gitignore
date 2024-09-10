@@ -7,5 +7,9 @@
 /users/resources.json
 /users.db
 /index.js
+/src/db/database.js
+/src/routers/userRoutes.js
+/src/services/services.js
+/src/types/usersType.ts
 # Editor-based HTTP Client requests
 /httpRequests/
