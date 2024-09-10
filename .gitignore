@@ -1,0 +1,11 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+/node_modules
+/README.md
+/.idea
+/users/resources.json
+/users.db
+/index.js
+# Editor-based HTTP Client requests
+/httpRequests/
