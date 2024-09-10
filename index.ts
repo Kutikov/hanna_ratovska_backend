@@ -1,5 +1,5 @@
 import express, { Express } from 'express';
-import userRoutes from './src/roures/userRoutes';
+import userRoutes from './src/routers/userRoutes';
 import { initializeDb } from './src/db/database';
 
 const app: Express = express();

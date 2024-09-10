@@ -3,6 +3,8 @@ import { getDbConnection } from '../db/database';
 import {User} from "../types/usersType";
 import {Database} from "sqlite";
 
+
+
 export const getAllUsers = async (req: Request, res: Response): Promise<void> => {
     try {
         const db: Database = await getDbConnection();
