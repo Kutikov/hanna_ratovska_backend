@@ -4,5 +4,6 @@
 /node_modules
 /README.md
 /.idea
+/users/resources.json
 # Editor-based HTTP Client requests
 /httpRequests/
