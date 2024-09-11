@@ -10,5 +10,6 @@
 /src/db/database.js
 /src/routers/userRoutes.js
 /src/services/services.js
+/src/types/usersType.js
 # Editor-based HTTP Client requests
 /httpRequests/

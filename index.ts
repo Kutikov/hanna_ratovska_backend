@@ -1,6 +1,6 @@
 import express, { Express } from 'express';
 import userRoutes from './src/routers/userRoutes';
-import { initializeDb } from './src/db/database';
+import { initializeDb2 } from './src/db/database';
 
 const app: Express = express();
 const PORT: number = 5000;
@@ -9,14 +9,12 @@ app.use(express.json());
 
 app.use('/users', userRoutes);
 
-initializeDb()
-    .then((): void => {
-        app.listen(PORT, (): void => {
-            console.log(`Server is running on port ${PORT}`);
-        });
-    })
-    .catch((error): void => {
-        console.error('Failed to initialize the database:', error);
-        process.exit(1);
+initializeDb2((): void => {
+    app.listen(PORT, (): void => {
+        console.log(`Server is running on port ${PORT}`);
     });
+    }, (err: Error|null): void => {
+        console.error('Failed to initialize the database:', err);
+        process.exit(1);
+    })
 
